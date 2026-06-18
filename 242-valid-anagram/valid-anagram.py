@@ -11,11 +11,9 @@ class Solution:
             tdir[char]=tdir.get(char, 0)+1
             
         for key, value in sdir.items():
-            try:
-                if not sdir[key]==tdir[key]:
-                    checker=False
-                    return checker
-            except KeyError:
+            if key not in tdir:
                 checker=False
                 return checker
+            if sdir[key]!=tdir[key]:
+                checker=False
         return checker

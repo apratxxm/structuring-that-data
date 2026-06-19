@@ -4,7 +4,6 @@ class Solution:
         n=len(nums)
         for element in nums:
             map[element]=map.get(element,0)+1
-        for key, value in map.items():
-            if value > n/2:
-                return key
+            if map[element]>n/2:
+                return element
         

@@ -7,30 +7,28 @@ class MyHashMap:
     def put(self, key: int, value: int) -> None:
         hash= self.hasher(key)
         self.bucket = self.buckets[hash]
-        if key not in self.bucket:
-            self.bucket.append(key)
-            self.bucket.append(value)
+        for pair in self.bucket:
+            if key in pair:
+                pair[1]=value
         else:
-            idx=self.bucket.index(key)
-            self.bucket[idx]=key
-            self.bucket[idx+1]=value
+            self.bucket.append([key,value])
 
     def get(self, key: int) -> int:
         hash= self.hasher(key)
         self.bucket=self.buckets[hash]
-        if key in self.bucket:
-            idx=self.bucket.index(key)
-            return self.bucket[idx+1]
+        for pair in self.bucket:
+            if key in pair:
+                return pair[1]
         else:
             return -1
 
     def remove(self, key: int) -> None:
         hash= self.hasher(key)
         self.bucket = self.buckets[hash]
-        if key in self.bucket:
-            idx=self.bucket.index(key)
-            valueidx=idx+2
-            self.bucket[idx:valueidx]=[]
+        for pair in self.bucket:
+            if key in pair:
+                idx=self.bucket.index(pair)
+                self.bucket[idx]=[]
 
     def hasher(self, key:int ) -> int:
         hash= key%10000
